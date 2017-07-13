@@ -22,4 +22,9 @@ class Article extends Model
     {
       $query->where('published_at','<=',Carbon::now());
     }
+
+    public function user()
+    {
+      return $this->belongsTo('App\User','user_id', 'id');
+    }
 }

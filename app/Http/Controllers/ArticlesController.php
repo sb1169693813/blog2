@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Article;
+use App\User;
+use Auth;
 // use Illuminate\Http\Request;
 use App\Http\Requests\CreateArticleRequest as Request;
 class ArticlesController extends Controller
@@ -13,6 +15,10 @@ class ArticlesController extends Controller
      */
     public function index()
     {
+        // $this->authorize('view', Article::class);
+        // return Auth::id();
+        $article = Article::first();
+        //return $article->user;
         // return 111;
         $articles =  Article::publish()->orderBy('published_at','desc')->get();
         return view('articles.index',compact('articles'));
@@ -51,9 +57,10 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        $article = Article::findOrFail($id);
+        //$article = Article::findOrFail($id);
+        $this->authorize('update', $article);
         return view('articles.show',compact('article'));
     }
 
@@ -63,9 +70,10 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        //
+        // return Auth::id().'   '.$article->user_id;
+
     }
 
     /**

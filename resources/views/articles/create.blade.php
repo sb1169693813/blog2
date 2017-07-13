@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.app')
 @section('content')
     {!! Form::open(['route' => 'articles.store']) !!}
     <div class="">
@@ -20,7 +20,7 @@
     <div class="">
         {!! Form::submit('提交') !!}
     </div>
-    @if(count($errors) > 0)
+    @if($errors->any())
       @foreach($errors->all() as $error)
         {{ $error }}
       @endforeach
